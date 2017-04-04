@@ -9,7 +9,7 @@ from django.http import Http404, HttpResponse
 def get_file(request, content_type_id, object_id, field_name, file_name):
     try:
         ct = ContentType.objects.get_for_id(content_type_id)
-        obj = ct.get_object_for_this_type(id=object_id)
+        obj = ct.get_object_for_this_type(pk=object_id)
         field = getattr(obj, field_name)
     except (ObjectDoesNotExist, AttributeError):
         raise Http404

@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.files import File
 from django.core.files.storage import Storage
 
-from pyweed import WeedFS
+from pyseaweed import WeedFS
 
 
 DATE_IS_NOT_AVAILABLE = datetime.min
@@ -26,7 +26,7 @@ class WeedFSStorage(Storage):
         self.master_port = master_port
         self.fs = WeedFS(master_host, master_port)
 
-    def get_available_name(self, name):
+    def get_available_name(self, name, max_length=None):
         return os.path.basename(name)
 
     def content(self, name):

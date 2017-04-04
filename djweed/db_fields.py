@@ -13,7 +13,7 @@ class WeedFSFieldFile(FieldFile):
         if len(splitted_name) == 2:
             return splitted_name
         return splitted_name[0], ''
-            
+
     def _get_storage_fid(self):
         return self._split_name()[0]
     storage_fid = property(_get_storage_fid)
@@ -21,7 +21,7 @@ class WeedFSFieldFile(FieldFile):
     def _get_verbose_name(self):
         return self._split_name()[1]
     verbose_name = property(_get_verbose_name)
-   
+
     def _get_content(self):
         self._require_file()
         return self.storage.content(self.storage_fid)
@@ -32,7 +32,7 @@ class WeedFSFieldFile(FieldFile):
         content_type = ContentType.objects.get_for_model(self.instance._meta.model)
         return reverse('weedfs_get_file', kwargs={
             'content_type_id': content_type.id,
-            'object_id': self.instance.id,
+            'object_id': str(self.instance.pk),
             'field_name': self.field.name,
             'file_name': self.verbose_name,
         })
@@ -42,7 +42,7 @@ class WeedFSFieldFile(FieldFile):
         self._require_file()
         return self.storage.url(self.storage_fid)
     storage_url = property(_get_storage_url)
- 
+
 
 class WeedFSFileField(FileField):
 
