@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models.fields.files import FieldFile, FileField
 from django.utils import six
 
@@ -56,8 +57,11 @@ class WeedFSFileField(FileField):
         if storage is None:
             storage = WeedFSStorage()
 
+        # super(WeedFSFileField, self).__init__(verbose_name, name,
+            # storage=storage, upload_to='/', **kwargs)
+
         super(WeedFSFileField, self).__init__(verbose_name, name,
-            storage=storage, upload_to='/', **kwargs)
+            storage=storage, **kwargs)
 
     def get_prep_value(self, value):
         "Returns field's value prepared for saving into a database."
